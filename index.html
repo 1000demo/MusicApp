@@ -143,13 +143,39 @@
         .rotateImg {
             animation: rotateAlbum 6s linear infinite;
         }
+
+        h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-top: 40px;
+            background: linear-gradient(90deg, #f851d9, #64116e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* text-shadow: 0 0 10px rgb(24 15 50), 0 0 20px rgb(19 12 40); */
+            /* animation: glow 2s infinite alternate; */
+        }
+
+        /* Animation */
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 106, 0, 0.6),
+                    0 0 20px rgba(238, 9, 121, 0.5);
+            }
+
+            to {
+                text-shadow: 0 0 20px rgba(255, 106, 0, 1),
+                    0 0 30px rgba(238, 9, 121, 0.9);
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="outer-sec">
         <div class="music-div">
+            <h1>Music App</h1>
             <div class="music-conatiner">
+
                 <h2 class="title">Aaoge jab tum sajana...</h2>
                 <h3 class="artist">Song by Irshad Kamil</h3>
                 <!-- <h4 class="movieName">The Loyalist</h4> -->
@@ -304,6 +330,8 @@
         const artist = document.querySelector('.artist');
         const next = document.querySelector('#next');
         const prev = document.querySelector('#prev');
+
+
 
         let isPlaying = false;
         //Play
