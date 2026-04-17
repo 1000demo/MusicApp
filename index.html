@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+        html,
+        body {
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top, #1a1035, #090616);
+            color: #fff;
+        }
+
+        .outer-sec {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Main Card */
+        .music-conatiner {
+            width: 300px;
+            padding: 25px 20px;
+            border-radius: 30px;
+            text-align: center;
+            background: linear-gradient(180deg, #1a1035, #0c0820);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        /* 🎵 Title */
+        .title {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 8s linear infinite;
+            margin: 0;
+        }
+
+        /* Smooth left scroll */
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .artist {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 35px;
+        }
+
+        /* 🎧 Vinyl Style Image */
+        .img-conatiner {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .img-conatiner img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+
+            /* Vinyl rings effect */
+            box-shadow:
+                0 0 0 8px rgba(255, 255, 255, 0.02),
+                0 0 0 16px rgba(255, 255, 255, 0.02),
+                0 0 0 24px rgba(255, 255, 255, 0.02),
+                0 0 40px rgba(168, 85, 247, 0.6);
+        }
+
+        /* Glow center dot effect */
+        .img-conatiner img::after {
+            content: '';
+        }
+
+        /* Controls */
+        .btn-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Buttons */
+        .btn-section i {
+            font-size: 18px;
+            color: #bbb;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-section i:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        /* Play button (purple glow like image) */
+        #play {
+            font-size: 22px;
+            background: linear-gradient(135deg, #9333ea, #ec4899);
+            color: #fff;
+            padding: 14px;
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
+        }
+
+        /* Rotation */
+        @keyframes rotateAlbum {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .rotateImg {
+            animation: rotateAlbum 6s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer-sec">
+        <div class="music-div">
+            <div class="music-conatiner">
+                <h2 class="title">Aaoge jab tum sajana...</h2>
+                <h3 class="artist">Song by Irshad Kamil</h3>
+                <!-- <h4 class="movieName">The Loyalist</h4> -->
+                <div class="img-conatiner">
+                    <img src="images/1.jpg" alt="" class="test">
+                </div>
+
+                <audio src="./songs/1.mp3"></audio>
+
+                <div class="music-controls"></div>
+
+                <div class="btn-section">
+                    <i class="fa-solid fa-backward" id="prev" title="Previous"></i>
+                    <i class="fa-solid fa-play" id="play" title="Play"></i>
+                    <i class="fa-solid fa-forward" id="next" title="Next"></i>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const songs = [
+            {
+                name: "1",
+                title: 'Aaoge jab tum sajana...',
+                artist: 'Sung by Irshad Kamil'
+            },
+            {
+                name: "2",
+                title: 'Laapata',
+                artist: 'Sung by KK'
+            },
+            {
+                name: "3",
+                title: 'Mauja hi mauja',
+                artist: 'Sung by Mika Singh'
+            },
+            {
+                name: "4",
+                title: 'Mayya',
+                artist: 'Sung by Maryem Toller'
+            },
+            {
+                name: "5",
+                title: 'Saiyara',
+                artist: 'Sung by Faheem Abdullah'
+            },
+            {
+                name: "6",
+                title: 'Ya Ali',
+                artist: 'Sung by Zubeen Garg'
+            },
+            {
+                name: "7",
+                title: 'Tum Tak ',
+                artist: 'Sung by Javed Ali'
+            },
+            {
+                name: "8",
+                title: 'Coke Studio',
+                artist: 'Sung by Pasoori  Ali Sethi'
+            },
+            {
+                name: "9",
+                title: 'Ram Siya Ram',
+                artist: 'Sung by Sachet-Parampara'
+            },
+            {
+                name: "10",
+                title: 'Aaya Re Toofan',
+                artist: 'Sung by Sony Music'
+            },
+            {
+                name: "11",
+                title: 'Pani Da Rang',
+                artist: 'Sung by Ayushmann Khurrana'
+            },
+            {
+                name: "12",
+                title: 'Dard Karaara',
+                artist: 'Kumar Sanu, Sadhana Sargam'
+            },
+            {
+                name: "13",
+                title: 'Tu Hi Meri Shab Hai',
+                artist: 'Sung by K.K'
+            },
+            {
+                name: "14",
+                title: 'Nashe Si Chadh Gayi',
+                artist: 'Sung by Arijit Singh,'
+            },
+            {
+                name: "15",
+                title: 'Oo Antava Mawa..Oo Oo Antava',
+                artist: 'Sung by Aditya Music'
+            },
+            {
+                name: "16",
+                title: 'Tere Liye',
+                artist: 'Sung by Atif Aslam'
+            },
+            {
+                name: "17",
+                title: 'Tum Se Hi',
+                artist: 'Sung by Pritam and Mohit Chauhan'
+            },
+            {
+                name: "18",
+                title: 'Zara Sa',
+                artist: 'Sung by Sony'
+            },
+            {
+                name: "19",
+                title: 'Dil Sambhal Ja Zara Phir Mohabbat',
+                artist: 'Sung by Ohd Irfan, Arjit, Salim Bhat'
+            },
+            {
+                name: "20",
+                title: 'Saiyaara Title Song',
+                artist: 'Sung by Ahaan Panday, Aneet Padda  Tanishk Bagchi'
+            },
+            {
+                name: "21",
+                title: 'Na To Karvan Ki Talash Hai',
+                artist: 'Sung by  Shashwat Sachdev, Shahzad Ali'
+            },
+            {
+                name: "22",
+                title: 'Gehra Hua',
+                artist: 'Sung by SachdevArijit Singh'
+            },
+            {
+                name: "23",
+                title: 'Afghan Jalebi',
+                artist: 'Sung by Pritam and Akhtar Chanal Zahri'
+            },
+
+        ];
+
+        //JS CODE
+        const music = document.querySelector('audio');
+        const play = document.querySelector('#play');
+        const myImage = document.querySelector('.test');
+
+        const title = document.querySelector('.title');
+        //const movieName = document.querySelector('.movieName');
+
+        const artist = document.querySelector('.artist');
+        const next = document.querySelector('#next');
+        const prev = document.querySelector('#prev');
+
+        let isPlaying = false;
+        //Play
+        let playMusic = () => {
+            isPlaying = true;
+            music.play();
+            play.classList.replace('fa-play', 'fa-pause');
+            myImage.classList.add('rotateImg');
+        };
+
+        //Pause
+        let pauseMusic = () => {
+            isPlaying = false;
+            music.pause();
+            play.classList.replace('fa-pause', 'fa-play');
+            myImage.classList.remove('rotateImg');
+        };
+
+        play.addEventListener('click', () => {
+            // if (isPlaying) {
+            //     pauseMusic();
+            // }
+            // else {
+            //     playMusic();
+            // }
+
+            isPlaying ? pauseMusic() : playMusic()
+        });
+
+        let songIndex = 0; //start song Array Number
+
+        const loadSong = (songs) => {
+            //movieName.textContent = songs.name;
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = "songs/" + songs.name + ".mp3";
+            myImage.src = "images/" + songs.name + ".jpg";
+        }
+
+        //loadSong(songs[songIndex]); //load song by array index [0]
+
+        const nextSong = () => {
+            songIndex = (songIndex + 1) % songs.length;
+            loadSong(songs[songIndex]); //load song by array index [0]
+            playMusic();
+        }
+
+        const prevSong = () => {
+            songIndex = (songIndex - 1 + songs.length) % songs.length;
+            loadSong(songs[songIndex]); //load song by array index [0]
+            playMusic();
+        }
+
+        next.addEventListener('click', nextSong);
+        prev.addEventListener('click', prevSong);
+
+
+    </script>
+</body>
+
+</html>
